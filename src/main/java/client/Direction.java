@@ -4,12 +4,12 @@ package client;
  * Created by Даша on 16.03.2017.
  */
 public enum Direction {
-    STOP,
+    STOP,  // ну тут все ясно, мы вместе это писали
     RIGHT,
     LEFT,
     BACK,
     GO;
-    public int deltaX() {
+    public int deltaX() {  // это тоже понятно, тут то что прибавляем в зависимости от направления
         switch (this) {
             case LEFT:
                 return -1;

@@ -1,14 +1,28 @@
 package client;
 
+import server.RBServer;
+
 import java.io.Serializable;
 
 /**
  * Created by Даша on 16.03.2017.
  */
-public class Coord implements Serializable {
+public class Coord implements Serializable { // последнее непонятное слово надо, без него не соединяются клиент и сервер
     int x;
     int y;
     Direction dir;
+    private int targetX=20;  // границы битового поля
+    private int targetY=20;
+    RBServer server;  // хз надо ли, взяла у Бори
+    int num;
+    public int number=0;
+    boolean move = true;
+    public boolean stop = false;
+
+    public boolean isEnd() {
+        return ((x==targetX)&&(y==targetY));
+    } // ну тут вроде все очевидно
+
     Coord(){
         this.x=0;
         this.y=0;
@@ -18,7 +32,7 @@ public class Coord implements Serializable {
         this.x=_x;
         this.y=_y;
         this.dir = dir;
-    }
+    }  // куча всяких конструкторов
     public Coord(Coord oldcoord)
     {
         this.x=oldcoord.x;
@@ -34,7 +48,18 @@ public class Coord implements Serializable {
     public Direction getDIR(){
         return dir;
     }
-
+    public void setTX(int x) {
+        this.targetX = x;
+    }
+    public void setTY(int y) {
+        this.targetY = y;
+    }
+    public int getTX() {
+        return targetX;
+    }
+    public int getTY() {
+        return targetY;
+    }
     public void Setcoord(int _x,int _y){
         x=_x;
         y=_y;
@@ -49,10 +74,18 @@ public class Coord implements Serializable {
     public void setY(int newy){
         this.y = newy;
     };
-    public void print(Coord coord)
+    public void print()
     {
-        System.out.println(coord.getX());
-        System.out.println(coord.getY());
-        System.out.println(coord.getDIR());
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(dir);
+    }
+
+
+    private void move() {
+        if (move) {
+            setX(getX() + dir.deltaX());
+            setY(getY() + dir.deltaY());
+        }
     }
 }
